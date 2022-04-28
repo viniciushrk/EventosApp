@@ -4,9 +4,9 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventosApp.Web", "EventosApp.Web.csproj", "{8944EC15-EEA8-426E-B528-56A4B44ECBF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventoApp.Api", "..\EventoApp.Api\EventoApp.Api.csproj", "{BBDE1C35-A2A7-4437-AE66-8484F0850F28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventoApp.Api", "..\EventoApp.Api\EventoApp.Api.csproj", "{BBDE1C35-A2A7-4437-AE66-8484F0850F28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventoApp.Core", "..\EventoApp.Core\EventoApp.Core.csproj", "{BCEF417A-F489-4399-B7DB-A19699E10981}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventoApp.Core", "..\EventoApp.Core\EventoApp.Core.csproj", "{BCEF417A-F489-4399-B7DB-A19699E10981}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
