@@ -23,25 +23,55 @@ namespace EventoApp.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var evento = _db.Eventos.Find(id);
+            if(evento == null)
+            {
+                return NotFound();
+            }
+            return Ok(evento);
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Evento evento)
         {
+            if(evento == null)
+                return BadRequest();
+            _db.Eventos.Add(evento);
+            _db.SaveChanges();
+
+            return Created($"eventos/{evento.Id}", evento);
         }
 
         
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Evento evento)
         {
+            if (id != evento.Id)
+                return BadRequest();
+
+            _db.Eventos.Update(evento);
+            _db.SaveChanges();
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var evento = _db.Eventos.Find(id);
+
+            if(evento == null)
+            {
+                return NotFound();
+            }
+
+            _db.Eventos.Remove(evento);
+
+            _db.SaveChanges();
+
+            return NoContent();
         }
     }
 }
