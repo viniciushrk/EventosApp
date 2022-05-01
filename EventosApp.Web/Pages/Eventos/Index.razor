@@ -1,0 +1,35 @@
+﻿@page "/eventos"
+@page "/eventos/index"
+@inject HttpClient Http
+
+<PageTitle>Eventos</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Eventos</MudText>
+<MudText Class="mb-8">Todos eventos ativos da cidade.</MudText>
+
+@if (eventos == null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}else{
+
+    <MudGrid>
+        
+            @foreach (var evento in eventos)
+            {
+                <MudItem sm="12" lg="4" md="6">
+                    <EventoCard Evento="@evento" ></EventoCard>
+                </MudItem>
+            }
+        
+    </MudGrid>
+    
+}
+
+@code {
+    private Evento[]? eventos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        eventos = await Http.GetFromJsonAsync<Evento[]>("Eventos");
+    }
+}
