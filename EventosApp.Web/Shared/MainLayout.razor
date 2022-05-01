@@ -1,34 +1,60 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
+@*<MudThemeProvider />*@
+<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_theme"/>
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
+<MudLayout >
     <MudAppBar Elevation="0">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudToggleIconButton 
+            @bind-Toggled="@_isOpen"
+            Icon="@Icons.Material.Filled.Menu" 
+            Color="@Color.Inherit" 
+            Title="Abrir Navegador"
+            Edge="Edge.Start" 
+            ToggledIcon="@Icons.Material.Filled.MenuOpen"
+            ToggledColor="@Color.Inherit" 
+            ToggledTitle="Fechar Navegador"/>
+       
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank" />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />
+        <MudToggleIconButton 
+            @bind-Toggled="@_isDarkMode"
+            Icon="@Icons.Material.Filled.DarkMode" 
+            Color="@Color.Inherit" 
+            Title="Abrir Navegador"
+            Edge="Edge.Start" 
+            ToggledIcon="@Icons.Material.Filled.LightMode"
+            ToggledColor="@Color.Inherit" 
+            ToggledTitle="Fechar Navegador"/>
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+    <MudDrawer @bind-Open="_isOpen" Elevation="1">
         <MudDrawerHeader>
             <MudText Typo="Typo.h6">EventosApp.Web</MudText>
         </MudDrawerHeader>
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
+        <MudContainer MaxWidth="MaxWidth.Large" Class="my-4 pt-1">
             @Body
         </MudContainer>
     </MudMainContent>
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
+    bool _isOpen;
+    bool _isDarkMode;
 
-    void DrawerToggle()
+    MudTheme _theme = new();
+    private MudThemeProvider _mudThemeProvider;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        _drawerOpen = !_drawerOpen;
+        if (firstRender)
+        {
+            _isOpen = true;
+            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+            StateHasChanged();
+        }
     }
 }
