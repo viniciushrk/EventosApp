@@ -1,0 +1,16 @@
+﻿
+    <MudCard>
+        <MudCardMedia Image="@Pokemon.Img" Height="200" />
+        <MudCardContent>
+            <MudText Typo="Typo.h5">@Pokemon.Nome</MudText>
+            <MudText Typo="Typo.body2">@Pokemon.Especie</MudText>
+            <MudText Typo="Typo.body2">@Pokemon.Raridade</MudText>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Text" Color="Color.Primary">Ler Mais</MudButton>
+        </MudCardActions>
+    </MudCard>
+@code {
+    [Parameter]
+    public Pokemon? Pokemon{ get; set; }
+}

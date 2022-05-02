@@ -1,0 +1,35 @@
+﻿@page "/pokemon"
+@page "/pokemon/index"
+@inject HttpClient Http
+
+<PageTitle>Pokemon</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Pokemon</MudText>
+<MudText Class="mb-8">Está Página é para mostrar a feture de leitura de um arquivo json.</MudText>
+
+@if (pokemons == null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}else{
+
+    <MudGrid>
+        
+            @foreach (var pokemon in pokemons)
+            {
+                <MudItem sm="12" lg="4" md="6">
+                    <PokemonCard Pokemon="@pokemon" ></PokemonCard>
+                </MudItem>
+            }
+        
+    </MudGrid>
+    
+}
+
+@code {
+    private Pokemon[]? pokemons;
+
+    protected override async Task OnInitializedAsync()
+    {
+        pokemons = await Http.GetFromJsonAsync<Pokemon[]>("https://localhost:5001/sample-data/pokemon.json");
+    }
+}
